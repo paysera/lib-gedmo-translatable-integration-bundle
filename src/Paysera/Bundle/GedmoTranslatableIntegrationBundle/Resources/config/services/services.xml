@@ -1,0 +1,21 @@
+<container xmlns="http://symfony.com/schema/dic/services">
+    <services>
+        <service id="paysera_entity_translation.service.translation_provider"
+                 class="Paysera\Bundle\EntityTranslationBundle\Service\TranslationProvider">
+            <argument type="service" id="stof_doctrine_extensions.listener.translatable" />
+            <argument type="service" id="doctrine.orm.default_entity_manager" />
+        </service>
+
+        <service id="paysera_entity_translation.service.translation_loader"
+                 class="Paysera\Bundle\EntityTranslationBundle\Service\TranslationLoader">
+            <argument type="service" id="paysera_entity_translation.service.translation_provider" />
+        </service>
+
+        <service id="paysera_entity_translation.service.entity_translator"
+                 class="Paysera\Bundle\EntityTranslationBundle\Service\EntityTranslator">
+            <argument type="service" id="evp_ticket_bundle.repository.translation" />
+            <argument type="service" id="stof_doctrine_extensions.listener.translatable" />
+            <argument type="service" id="doctrine.orm.default_entity_manager" />
+        </service>
+    </services>
+</container>
