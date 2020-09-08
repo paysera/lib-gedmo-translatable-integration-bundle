@@ -1,10 +1,10 @@
 <container xmlns="http://symfony.com/schema/dic/services">
     <services>
-        <service id="paysera_entity_translation.listener.translatable_entity"
-                 class="Paysera\Bundle\EntityTranslationBundle\Listener\TranslatableEntityListener">
-            <argument type="service" id="paysera_entity_translation.service.translation_loader" />
-            <argument type="service" id="paysera_entity_translation.service.translation_provider" />
-            <argument type="service" id="paysera_entity_translation.service.entity_translator" />
+        <service id="paysera_gedmo_translatable_integration.listener.translatable_entity"
+                 class="Paysera\Bundle\GedmoTranslatableIntegrationBundle\Listener\TranslatableEntityListener">
+            <argument type="service" id="paysera_gedmo_translatable_integration.service.translation_loader" />
+            <argument type="service" id="paysera_gedmo_translatable_integration.service.translation_provider" />
+            <argument type="service" id="paysera_gedmo_translatable_integration.service.entity_translator" />
             <tag name="doctrine.event_listener" event="postLoad" method="postLoad" />
             <tag name="doctrine.event_listener" event="prePersist" method="prePersist" />
         </service>
