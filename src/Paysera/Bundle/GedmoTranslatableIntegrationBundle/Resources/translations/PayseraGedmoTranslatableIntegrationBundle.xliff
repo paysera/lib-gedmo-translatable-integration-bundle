@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file source-language="en" datatype="plaintext" original="">
+        <body>
+            <trans-unit id="paysera_gedmo_translatable_integration.validator.missing_default_locale_translation">
+                <source>paysera_gedmo_translatable_integration.validator.missing_default_locale_translation</source>
+                <target>Missing translation for %locale% locale</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

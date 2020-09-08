@@ -1,0 +1,21 @@
+<container xmlns="http://symfony.com/schema/dic/services">
+    <services>
+        <service id="paysera_gedmo_translatable_integration.service.translation_provider"
+                 class="Paysera\Bundle\GedmoTranslatableIntegrationBundle\Service\TranslationProvider">
+            <argument type="service" id="stof_doctrine_extensions.listener.translatable" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>
+
+        <service id="paysera_gedmo_translatable_integration.service.translation_loader"
+                 class="Paysera\Bundle\GedmoTranslatableIntegrationBundle\Service\TranslationLoader">
+            <argument type="service" id="paysera_gedmo_translatable_integration.service.translation_provider" />
+        </service>
+
+        <service id="paysera_gedmo_translatable_integration.service.entity_translator"
+                 class="Paysera\Bundle\GedmoTranslatableIntegrationBundle\Service\EntityTranslator">
+            <argument type="service" id="paysera_gedmo_translatable_integration.repository.translation" />
+            <argument type="service" id="stof_doctrine_extensions.listener.translatable" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>
+    </services>
+</container>

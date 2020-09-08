@@ -1,0 +1,10 @@
+<container xmlns="http://symfony.com/schema/dic/services">
+    <services>
+        <service id="paysera_gedmo_translatable_integration.validator.translatable_property"
+                 class="Paysera\Bundle\GedmoTranslatableIntegrationBundle\Validator\TranslatablePropertyConstraintValidator">
+            <argument>%kernel.default_locale%</argument>
+            <tag name="validator.constraint_validator"
+                 alias="paysera_gedmo_translatable_integration.validator.translatable_property" />
+        </service>
+    </services>
+</container>

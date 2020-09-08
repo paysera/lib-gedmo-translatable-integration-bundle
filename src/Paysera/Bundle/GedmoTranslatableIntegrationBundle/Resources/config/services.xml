@@ -1,0 +1,8 @@
+<container xmlns="http://symfony.com/schema/dic/services">
+    <imports>
+        <import resource="services/services.xml" />
+        <import resource="services/listeners.xml" />
+        <import resource="services/validators.xml" />
+        <import resource="services/repositories.xml" />
+    </imports>
+</container>
