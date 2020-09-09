@@ -22,9 +22,7 @@ trait TranslatableEntityTrait
      */
     public function getTranslations(string $property): array
     {
-        if ($this->translationStorage === null) {
-            return [];
-        }
+        $this->initializeStorage();
         return $this->translationStorage->getTranslations($property);
     }
 
@@ -35,9 +33,8 @@ trait TranslatableEntityTrait
      */
     public function addTranslations(string $property, array $translations)
     {
-        if ($this->translationStorage !== null) {
-            $this->translationStorage->addTranslations($property, $translations);
-        }
+        $this->initializeStorage();
+        $this->translationStorage->addTranslations($property, $translations);
         return $this;
     }
 
@@ -67,5 +64,12 @@ trait TranslatableEntityTrait
     {
         $this->locale = $locale;
         return $this;
+    }
+
+    private function initializeStorage()
+    {
+        if ($this->translationStorage === null) {
+            $this->translationStorage = new TranslationStorage();
+        }
     }
 }
