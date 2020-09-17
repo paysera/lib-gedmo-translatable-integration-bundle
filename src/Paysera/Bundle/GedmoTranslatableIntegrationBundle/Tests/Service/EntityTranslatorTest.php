@@ -38,7 +38,6 @@ class EntityTranslatorTest extends TestCase
         $this->translatableListener = $this->createMock(TranslatableListener::class);
         $this->entityManager = $this->createMock(EntityManager::class);
         $this->entityTranslator = new EntityTranslator(
-            $this->translationRepository,
             $this->translatableListener,
             $this->entityManager
         );
@@ -59,9 +58,18 @@ class EntityTranslatorTest extends TestCase
             ,
         ];
 
+        $this->entityManager->expects($this->once())
+            ->method('getRepository')
+            ->willReturn($this->translationRepository)
+        ;
+
         $this->translatableListener->expects($this->any())
             ->method('getTranslatableLocale')
             ->willReturn('en')
+        ;
+        $this->translatableListener->expects($this->once())
+            ->method('getConfiguration')
+            ->willReturn(['translationClass' => 'App\Entity\Translation'])
         ;
 
         $entity = $this->createMock(TranslatableEntityInterface::class);

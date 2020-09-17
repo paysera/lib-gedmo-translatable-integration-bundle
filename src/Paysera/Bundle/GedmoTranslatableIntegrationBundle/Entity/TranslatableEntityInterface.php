@@ -6,11 +6,7 @@ namespace Paysera\Bundle\GedmoTranslatableIntegrationBundle\Entity;
 
 interface TranslatableEntityInterface
 {
-    /**
-     * @param string $property
-     * @return array|null
-     */
-    public function getTranslations(string $property);
+    public function getTranslations(string $property): array;
 
     /**
      * @param string $property
