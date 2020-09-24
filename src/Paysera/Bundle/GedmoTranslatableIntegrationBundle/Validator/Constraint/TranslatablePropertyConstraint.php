@@ -27,7 +27,7 @@ class TranslatablePropertyConstraint extends Constraint
 
     public function validatedBy(): string
     {
-        return 'paysera_entity_translation.validator.translatable_property_constraint';
+        return 'paysera_gedmo_translatable_integration.validator.translatable_property';
     }
 
     public function getTargets(): string
