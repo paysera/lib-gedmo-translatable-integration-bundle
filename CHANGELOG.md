@@ -8,3 +8,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fixed  `\Paysera\Bundle\GedmoTranslatableIntegrationBundle\Validator\Constraint\TranslatablePropertyConstraint::validatedBy`, where it was using a left-over service ID after namespace refactoring.
 - Fixed a bug where `\Paysera\Bundle\GedmoTranslatableIntegrationBundle\Validator\TranslatablePropertyConstraintValidator::validate` would early return and not build a violation message. 
+- Fixed a bug where `\Paysera\Bundle\GedmoTranslatableIntegrationBundle\Validator\TranslatablePropertyConstraintValidator::validate` was expecting `getTranslations` to return `null`, rather an empty array.
