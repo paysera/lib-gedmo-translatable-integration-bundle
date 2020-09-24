@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Paysera\Bundle\GedmoTranslatableIntegrationBundle\Validator;
 
+use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\ConstraintValidator;
 use Paysera\Bundle\GedmoTranslatableIntegrationBundle\Entity\TranslatableEntityInterface;
 use Paysera\Bundle\GedmoTranslatableIntegrationBundle\Exception\EntityNotTranslatableException;
 use Paysera\Bundle\GedmoTranslatableIntegrationBundle\Validator\Constraint\TranslatablePropertyConstraint;
-use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\ConstraintValidator;
 
 class TranslatablePropertyConstraintValidator extends ConstraintValidator
 {
@@ -26,9 +26,6 @@ class TranslatablePropertyConstraintValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
-        if ($value === null) {
-            return;
-        }
         $object = $this->context->getObject();
         if (!$object instanceof TranslatableEntityInterface) {
             throw new EntityNotTranslatableException(
@@ -36,7 +33,8 @@ class TranslatablePropertyConstraintValidator extends ConstraintValidator
             );
         }
         $propertyPath = $this->context->getPropertyPath();
-        if ($object->getTranslations($propertyPath) === null) {
+        $translations = $object->getTranslations($propertyPath);
+        if (!isset($translations[$this->defaultLocale])) {
             $this->context
                 ->buildViolation($constraint->missingDefaultLocaleTranslation)
                 ->atPath($this->defaultLocale)
