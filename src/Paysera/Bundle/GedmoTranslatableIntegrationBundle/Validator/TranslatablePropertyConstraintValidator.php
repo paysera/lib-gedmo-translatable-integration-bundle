@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Paysera\Bundle\GedmoTranslatableIntegrationBundle\Validator;
 
+use Paysera\Bundle\GedmoTranslatableIntegrationBundle\Entity\Translation;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Paysera\Bundle\GedmoTranslatableIntegrationBundle\Entity\TranslatableEntityInterface;
@@ -32,9 +33,9 @@ class TranslatablePropertyConstraintValidator extends ConstraintValidator
                 'Unsupported object in validation context, epxected TranslatableEntityInterface'
             );
         }
-        $propertyPath = $this->context->getPropertyPath();
-        $translations = $object->getTranslations($propertyPath);
-        if (!isset($translations[$this->defaultLocale])) {
+        $propertyName = $this->context->getPropertyName();
+        $translations = $object->getTranslations($propertyName);
+        if ($this->getDefaultTranslation($translations) === null) {
             $this->context
                 ->buildViolation($constraint->missingDefaultLocaleTranslation)
                 ->atPath($this->defaultLocale)
@@ -42,5 +43,19 @@ class TranslatablePropertyConstraintValidator extends ConstraintValidator
                 ->addViolation()
             ;
         }
+    }
+
+    /**
+     * @param Translation[] $translations
+     * @return Translation|null
+     */
+    private function getDefaultTranslation(array $translations)
+    {
+        foreach ($translations as $translation) {
+            if ($translation->getLocale() === $this->defaultLocale) {
+                return $translation;
+            }
+        }
+        return null;
     }
 }
