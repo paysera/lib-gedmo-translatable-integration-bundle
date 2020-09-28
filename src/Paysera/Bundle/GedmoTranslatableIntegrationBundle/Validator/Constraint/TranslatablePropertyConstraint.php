@@ -11,11 +11,6 @@ class TranslatablePropertyConstraint extends Constraint
     /**
      * @var string
      */
-    public $translationPath;
-
-    /**
-     * @var string
-     */
     public $missingDefaultLocaleTranslation;
 
     public function __construct()
