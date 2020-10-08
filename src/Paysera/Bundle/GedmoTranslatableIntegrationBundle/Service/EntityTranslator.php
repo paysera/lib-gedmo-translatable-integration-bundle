@@ -4,41 +4,36 @@ declare(strict_types=1);
 
 namespace Paysera\Bundle\GedmoTranslatableIntegrationBundle\Service;
 
-use RuntimeException;
 use Doctrine\ORM\EntityManagerInterface;
-use Gedmo\Translatable\TranslatableListener;
 use Gedmo\Translatable\Entity\Repository\TranslationRepository;
 use Paysera\Bundle\GedmoTranslatableIntegrationBundle\Entity\TranslatableEntityInterface;
 use Paysera\Bundle\GedmoTranslatableIntegrationBundle\Entity\Translation;
 
 class EntityTranslator
 {
-    private $translatableListener;
+    private $translationProvider;
     private $entityManager;
 
     public function __construct(
-        TranslatableListener $translatableListener,
+        TranslationProvider $translationProvider,
         EntityManagerInterface $entityManager
     ) {
-        $this->translatableListener = $translatableListener;
+        $this->translationProvider = $translationProvider;
         $this->entityManager = $entityManager;
     }
 
-    public function translate(TranslatableEntityInterface $entity, array $translatableFields)
+    public function translate(TranslatableEntityInterface $entity)
     {
-        $config = $this->translatableListener->getConfiguration($this->entityManager, get_class($entity));
-        if (!isset($config['translationClass'])) {
-            throw new RuntimeException('Translatable entity requires translation configuration');
-        }
+        $translationClass = $this->translationProvider->getTranslationClass($entity);
         /** @var TranslationRepository $repository */
-        $repository = $this->entityManager->getRepository($config['translationClass']);
+        $repository = $this->entityManager->getRepository($translationClass);
+        $translatableFields = $this->translationProvider->getTranslatableFields($entity);
         foreach ($translatableFields as $field) {
             $translations = $entity->getTranslations($field);
             if (count($translations) === 0) {
                 continue;
             }
-            $meta = $this->entityManager->getClassMetadata(get_class($entity));
-            $translatableLocale = $this->translatableListener->getTranslatableLocale($entity, $meta);
+            $translatableLocale = $this->translationProvider->getTranslationLocale();
             $filteredTranslations = $this->removeDefaultTranslation($translations, $translatableLocale);
             foreach ($filteredTranslations as $translation) {
                 $repository->translate(
