@@ -10,6 +10,7 @@ use Gedmo\Translatable\TranslatableListener;
 use Paysera\Bundle\GedmoTranslatableIntegrationBundle\Entity\TranslatableEntityInterface;
 use Paysera\Bundle\GedmoTranslatableIntegrationBundle\Entity\Translation;
 use Paysera\Bundle\GedmoTranslatableIntegrationBundle\Service\EntityTranslator;
+use Paysera\Bundle\GedmoTranslatableIntegrationBundle\Service\TranslationProvider;
 use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
 
@@ -20,9 +21,9 @@ class EntityTranslatorTest extends TestCase
      */
     private $translationRepository;
     /**
-     * @var TranslatableListener|PHPUnit_Framework_MockObject_MockObject
+     * @var TranslationProvider|PHPUnit_Framework_MockObject_MockObject
      */
-    private $translatableListener;
+    private $translationProvider;
     /**
      * @var EntityManager|PHPUnit_Framework_MockObject_MockObject
      */
@@ -35,10 +36,10 @@ class EntityTranslatorTest extends TestCase
     public function setUp()
     {
         $this->translationRepository = $this->createMock(TranslationRepository::class);
-        $this->translatableListener = $this->createMock(TranslatableListener::class);
+        $this->translationProvider = $this->createMock(TranslationProvider::class);
         $this->entityManager = $this->createMock(EntityManager::class);
         $this->entityTranslator = new EntityTranslator(
-            $this->translatableListener,
+            $this->translationProvider,
             $this->entityManager
         );
     }
@@ -63,13 +64,13 @@ class EntityTranslatorTest extends TestCase
             ->willReturn($this->translationRepository)
         ;
 
-        $this->translatableListener->expects($this->any())
-            ->method('getTranslatableLocale')
+        $this->translationProvider->expects($this->any())
+            ->method('getTranslationLocale')
             ->willReturn('en')
         ;
-        $this->translatableListener->expects($this->once())
-            ->method('getConfiguration')
-            ->willReturn(['translationClass' => 'App\Entity\Translation'])
+        $this->translationProvider->expects($this->any())
+            ->method('getTranslatableFields')
+            ->willReturn(['field'])
         ;
 
         $entity = $this->createMock(TranslatableEntityInterface::class);
@@ -84,6 +85,6 @@ class EntityTranslatorTest extends TestCase
             ->with($entity, 'field', 'lt', 'foo')
         ;
 
-        $this->entityTranslator->translate($entity, ['field']);
+        $this->entityTranslator->translate($entity);
     }
 }

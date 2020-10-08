@@ -42,6 +42,6 @@ class TranslatableEntityListener
         if (!$entity instanceof TranslatableEntityInterface) {
             return;
         }
-        $this->entityTranslator->translate($entity, $this->translationProvider->getTranslatableFields($entity));
+        $this->entityTranslator->translate($entity);
     }
 }

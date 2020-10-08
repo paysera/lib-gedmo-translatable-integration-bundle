@@ -48,6 +48,12 @@ trait TranslatableEntityTrait
         return $this;
     }
 
+    public function getTranslationStorage(): TranslationStorage
+    {
+        $this->initializeStorage();
+        return $this->translationStorage;
+    }
+
     /**
      * @return string|null
      */

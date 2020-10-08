@@ -26,6 +26,15 @@ class TranslationProvider
         return $this->translatableListener->getListenerLocale();
     }
 
+    public function getTranslationClass(TranslatableEntityInterface $entity): string
+    {
+        $config = $this->translatableListener->getConfiguration($this->entityManager, get_class($entity));
+        if (!isset($config['translationClass'])) {
+            throw new RuntimeException('Translatable entity requires translation configuration');
+        }
+        return $config['translationClass'];
+    }
+
     public function getTranslatableFields(TranslatableEntityInterface $entity): array
     {
         $config = $this->translatableListener->getConfiguration($this->entityManager, get_class($entity));
