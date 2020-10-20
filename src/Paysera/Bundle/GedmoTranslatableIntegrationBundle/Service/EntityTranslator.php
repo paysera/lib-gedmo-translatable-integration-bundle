@@ -24,10 +24,10 @@ class EntityTranslator
 
     public function translate(TranslatableEntityInterface $entity)
     {
-        $translationClass = $this->translationProvider->getTranslationClass($entity);
+        $translationClass = $this->translationProvider->getTranslationClass(get_class($entity));
         /** @var TranslationRepository $repository */
         $repository = $this->entityManager->getRepository($translationClass);
-        $translatableFields = $this->translationProvider->getTranslatableFields($entity);
+        $translatableFields = $this->translationProvider->getTranslatableFields(get_class($entity));
         foreach ($translatableFields as $field) {
             $translations = $entity->getTranslations($field);
             if (count($translations) === 0) {

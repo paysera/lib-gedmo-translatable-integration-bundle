@@ -6,7 +6,6 @@ namespace Paysera\Bundle\GedmoTranslatableIntegrationBundle\Tests\Service;
 
 use Doctrine\ORM\EntityManager;
 use Gedmo\Translatable\Entity\Repository\TranslationRepository;
-use Gedmo\Translatable\TranslatableListener;
 use Paysera\Bundle\GedmoTranslatableIntegrationBundle\Entity\TranslatableEntityInterface;
 use Paysera\Bundle\GedmoTranslatableIntegrationBundle\Entity\Translation;
 use Paysera\Bundle\GedmoTranslatableIntegrationBundle\Service\EntityTranslator;
