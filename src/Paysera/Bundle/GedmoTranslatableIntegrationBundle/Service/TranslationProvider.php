@@ -26,18 +26,18 @@ class TranslationProvider
         return $this->translatableListener->getListenerLocale();
     }
 
-    public function getTranslationClass(TranslatableEntityInterface $entity): string
+    public function getTranslationClass(string $entityClassName): string
     {
-        $config = $this->translatableListener->getConfiguration($this->entityManager, get_class($entity));
+        $config = $this->translatableListener->getConfiguration($this->entityManager, $entityClassName);
         if (!isset($config['translationClass'])) {
             throw new RuntimeException('Translatable entity requires translation configuration');
         }
         return $config['translationClass'];
     }
 
-    public function getTranslatableFields(TranslatableEntityInterface $entity): array
+    public function getTranslatableFields(string $entityClassName): array
     {
-        $config = $this->translatableListener->getConfiguration($this->entityManager, get_class($entity));
+        $config = $this->translatableListener->getConfiguration($this->entityManager, $entityClassName);
         if (!isset($config['fields'])) {
             throw new RuntimeException('Translatable entity requires translation configuration');
         }
