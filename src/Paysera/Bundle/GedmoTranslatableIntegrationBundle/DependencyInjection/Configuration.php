@@ -12,8 +12,6 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('paysera_gedmo_translatable_integration');
-
-        return $treeBuilder;
+        return $treeBuilder->root('paysera_gedmo_translatable_integration');
     }
 }

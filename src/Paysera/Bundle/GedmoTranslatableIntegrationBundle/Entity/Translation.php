@@ -35,6 +35,7 @@ class Translation
         $this->locale = $locale;
         return $this;
     }
+
     public function getValue()
     {
         return $this->value;
