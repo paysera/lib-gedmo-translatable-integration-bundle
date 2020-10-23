@@ -77,11 +77,6 @@ class TranslationSearchTest extends AbstractFunctionalTestCase
         /** @var TestEntity $testEntity */
         $testEntity = reset($result);
         $this->assertEquals(1, $testEntity->getId());
-
-        $configuration
-            ->setLocale('es')
-            ->setValue('%uno%')
-        ;
     }
 
     public function testTranslationSearchReturnsEmptyResult()
