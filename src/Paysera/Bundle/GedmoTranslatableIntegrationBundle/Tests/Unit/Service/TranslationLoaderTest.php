@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Paysera\Bundle\GedmoTranslatableIntegrationBundle\Tests\Service;
+namespace Paysera\Bundle\GedmoTranslatableIntegrationBundle\Tests\Unit\Service;
 
 use Paysera\Bundle\GedmoTranslatableIntegrationBundle\Entity\TranslatableEntityInterface;
 use Paysera\Bundle\GedmoTranslatableIntegrationBundle\Entity\TranslationStorage;
