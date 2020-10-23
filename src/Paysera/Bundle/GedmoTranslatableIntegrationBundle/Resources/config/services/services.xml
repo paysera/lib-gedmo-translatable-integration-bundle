@@ -16,5 +16,10 @@
             <argument type="service" id="paysera_gedmo_translatable_integration.service.translation_provider" />
             <argument type="service" id="doctrine.orm.entity_manager" />
         </service>
+
+        <service id="paysera_gedmo_translatable_integration.service.query_builder_translation_search_modifier"
+                 class="Paysera\Bundle\GedmoTranslatableIntegrationBundle\Service\QueryBuilderTranslationSearchModifier">
+            <argument type="service" id="paysera_gedmo_translatable_integration.service.translation_provider" />
+        </service>
     </services>
 </container>
