@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Paysera\Bundle\GedmoTranslatableIntegrationBundle\Tests\Service;
+namespace Paysera\Bundle\GedmoTranslatableIntegrationBundle\Tests\Unit\Service;
 
 use Doctrine\ORM\EntityManager;
 use Gedmo\Translatable\Entity\Repository\TranslationRepository;

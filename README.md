@@ -115,3 +115,53 @@ class PostManager
     }
 }
 ```
+
+#### Modifying queries to join the translations table
+
+In cases, where you might want to join the translations table to select for translations as well, you can use the 
+`\Paysera\Bundle\GedmoTranslatableIntegrationBundle\Service\QueryBuilderTranslationSearchModifier`.
+
+```php
+<?php
+
+namespace App\Service;
+
+use App\Entity\Post;
+use App\Entity\PostFilter;
+use App\Repository\PostRepository;
+use Paysera\Bundle\GedmoTranslatableIntegrationBundle\Entity\TranslationSearchConfiguration;
+use Paysera\Bundle\GedmoTranslatableIntegrationBundle\Service\QueryBuilderTranslationSearchModifier;
+
+class PostManager
+{
+    /**
+    * @var QueryBuilderTranslationSearchModifier
+    */
+    private $queryBuilderTranslationSearchModifier;
+
+    /**
+    * @var PostRepository
+    */
+    private $postRepository;
+
+    public function findPostsByFilter(PostFilter $filter)
+    {
+        // Let's imagine here you execute your select, andWhere methods to construct a query builder that would search
+        // for posts that match the filter.
+        $queryBuilder = $this->postRepository->createQueryBuilderFromFilter($filter);
+        
+        // Modify the query builder to join the translations table and also select posts that match the translation.
+        $this->queryBuilderTranslationSearchModifier->modifyQueryBuilder(
+            $queryBuilder,
+            (new TranslationSearchConfiguration())
+                ->setAlias('p')
+                ->setClassName(Post::class)
+                ->setField('name')
+                ->setLocale('lt')
+                ->setValue(sprintf('%%%s%%', addcslashes($filter->getName(), '%_')))
+        );
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+}
+```
