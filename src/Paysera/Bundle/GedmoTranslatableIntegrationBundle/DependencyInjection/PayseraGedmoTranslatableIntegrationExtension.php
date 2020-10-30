@@ -18,5 +18,7 @@ class PayseraGedmoTranslatableIntegrationExtension extends Extension
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
+
+        $container->setParameter('paysera_gedmo_translatable_integration.default_locale', $config['default_locale']);
     }
 }

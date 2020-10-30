@@ -13,13 +13,16 @@ class EntityTranslator
 {
     private $translationProvider;
     private $entityManager;
+    private $defaultLocale;
 
     public function __construct(
         TranslationProvider $translationProvider,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        string $defaultLocale
     ) {
         $this->translationProvider = $translationProvider;
         $this->entityManager = $entityManager;
+        $this->defaultLocale = $defaultLocale;
     }
 
     public function translate(TranslatableEntityInterface $entity)
@@ -33,8 +36,7 @@ class EntityTranslator
             if (count($translations) === 0) {
                 continue;
             }
-            $translatableLocale = $this->translationProvider->getTranslationLocale();
-            $filteredTranslations = $this->removeDefaultTranslation($translations, $translatableLocale);
+            $filteredTranslations = $this->removeDefaultTranslation($translations);
             foreach ($filteredTranslations as $translation) {
                 $repository->translate(
                     $entity,
@@ -48,15 +50,15 @@ class EntityTranslator
 
     /**
      * @param Translation[] $translations
-     * @param string $locale
      * @return Translation[]
      */
-    private function removeDefaultTranslation(array $translations, string $locale): array
+    private function removeDefaultTranslation(array $translations): array
     {
+        $defaultLocale = $this->defaultLocale;
         return array_filter(
             $translations,
-            static function (Translation $translation) use ($locale) {
-                return $translation->getLocale() !== $locale;
+            static function (Translation $translation) use ($defaultLocale) {
+                return $translation->getLocale() !== $defaultLocale;
             }
         );
     }

@@ -15,6 +15,7 @@
                  class="Paysera\Bundle\GedmoTranslatableIntegrationBundle\Service\EntityTranslator">
             <argument type="service" id="paysera_gedmo_translatable_integration.service.translation_provider" />
             <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument>%paysera_gedmo_translatable_integration.default_locale%</argument>
         </service>
 
         <service id="paysera_gedmo_translatable_integration.service.query_builder_translation_search_modifier"

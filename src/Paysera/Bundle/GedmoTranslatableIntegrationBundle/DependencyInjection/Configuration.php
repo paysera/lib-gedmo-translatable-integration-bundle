@@ -14,6 +14,14 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('paysera_gedmo_translatable_integration');
 
+        $rootNode
+            ->children()
+                ->scalarNode('default_locale')
+                ->isRequired()
+                ->end()
+            ->end()
+        ;
+
         return $treeBuilder;
     }
 }
