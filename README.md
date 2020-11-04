@@ -12,6 +12,14 @@ library helps you by loading all translations and translating the entity automat
 Append `new Paysera\Bundle\GedmoTranslatableIntegrationBundle\PayseraGedmoTranslatableIntegrationBundle()` to your project
 Symfony kernel bundles.
 
+Append `config.yml`:
+```yaml
+paysera_gedmo_translatable_integration:
+    default_locale: '<default_locale>'
+```
+
+`default_locale` - this is your application default locale.
+
 ## Usage
 
 #### Define translatable entities
